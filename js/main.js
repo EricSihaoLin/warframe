@@ -1,3 +1,14 @@
+var worldState;
+var dayCycle;
+var bountyCycle;
+
+function getWorldState() {
+	$.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('http://content.warframe.com/dynamic/worldState.php') + '&callback=?', function(data){
+		worldState = JSON.parse(data.contents);
+		updatePage();
+	});
+}
+
 function getCurrentTitle () {
     if(getCurrentCycleSeconds() < 3000)
 	{
@@ -20,23 +31,90 @@ function getSecondsLeft() {
 	return 9000 - seconds;
 }
 
+function getObjects(obj, key, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));
+        } else if (i == key && obj[key] == val) {
+            objects.push(obj);
+        }
+    }
+    return objects;
+}
 
-setInterval(function(){
-	var duration = moment.duration(getSecondsLeft()*1000, 'milliseconds');
-    duration = moment.duration(duration.asMilliseconds() - 1000, 'milliseconds');
-	document.getElementById('title').innerText = getCurrentTitle();
+function updatePage() {
+	updateDayCycle();
+	updateBounty();
+}
+
+function updateDayCycle() {
+	if(dayCycle){
+		clearInterval(dayCycle);
+		dayCycle = null;
+	}
+	dayCycle = setInterval(function(){
+		var duration = moment.duration(getSecondsLeft()*1000, 'milliseconds');
+		duration = moment.duration(duration.asMilliseconds() - 1000, 'milliseconds');
+		document.getElementById('title').innerText = getCurrentTitle();
+		document.getElementById('time').innerText = formatDuration(duration);
+	}, 1000);
+}
+
+function updateBounty() {
+	if(bountyCycle){
+		clearInterval(bountyCycle);
+		bountyCycle = null;
+	}
+	var cetus = getObjects(worldState, 'Tag', 'CetusSyndicate');
+	if(cetus)
+	{
+		bountyCycle = setInterval(function(){
+			var current = new Date().getTime();
+			var activate = parseInt(cetus[0]["Activation"]["$date"]["$numberLong"]);
+			var expire = parseInt(cetus[0]["Expiry"]["$date"]["$numberLong"]);
+			
+			var durationActive = moment.duration(activate - current, 'milliseconds');
+			var durationExpire = moment.duration(expire - current, 'milliseconds');
+			durationActive = moment.duration(durationActive.asMilliseconds() - 1000, 'milliseconds');
+			durationExpire = moment.duration(durationExpire.asMilliseconds() - 1000, 'milliseconds');
+			
+			if(current < activate){
+				document.getElementById('bountytitle').innerText = "New bounties in:";
+				document.getElementById('bountytime').innerText = formatDuration(durationActive);
+			}
+			else if(current > activate && current < expire){
+				document.getElementById('bountytitle').innerText = "Bounties expire in:";
+				document.getElementById('bountytime').innerText = formatDuration(durationExpire);
+			}
+			else{
+				document.getElementById('bountytitle').innerText = "Bounties expired...";
+				document.getElementById('bountytime').innerText = "Waiting for WorldState to update";
+			}
+		}, 1000);
+	}
+	else{
+		document.getElementById('bountytitle').innerText = "No Bounty Information Available";
+		document.getElementById('bountytime').innerText = "Waiting for WorldState to update";
+	}
+}
+
+function formatDuration(duration){
 	var timeText = "";
 	if(duration.hours())
 	{
-		if(duration.hours() > 1) {timeText += duration.hours() + " Hours ";} else {timeText += duration.hours() + " Hour ";}
+		if(duration.hours() > 1) {timeText += duration.hours() + " hours ";} else {timeText += duration.hours() + " hour ";}
 	}
 	if(duration.minutes())
 	{
-		if(duration.minutes() > 1) {timeText += duration.minutes() + " Minutes ";} else {timeText += duration.minutes() + " Minute ";}
+		if(duration.minutes() > 1) {timeText += duration.minutes() + " minutes ";} else {timeText += duration.minutes() + " minute ";}
 	}
-	if(duration.seconds())
-	{
-		if(duration.seconds() > 1) {timeText += duration.seconds() + " Seconds";} else {timeText += duration.seconds() + " Seconds";}
-	}
-	document.getElementById('time').innerText = timeText;
-}, 1000);
+	if(duration.seconds() > 1) {timeText += duration.seconds() + " seconds";} else {timeText += duration.seconds() + " seconds";}
+	return timeText;
+}
+
+getWorldState();
+setInterval(function(){
+	getWorldState();
+}, 60000);
