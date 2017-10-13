@@ -1,10 +1,13 @@
 var worldState;
+var updateTime;
 var dayCycle;
 var bountyCycle;
+var worldCycle;
 
 function getWorldState() {
 	$.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('http://content.warframe.com/dynamic/worldState.php') + '&callback=?', function(data){
 		worldState = JSON.parse(data.contents);
+		updateTime = (new Date()).getTime();
 		updatePage();
 	});
 }
@@ -47,6 +50,17 @@ function getObjects(obj, key, val) {
 function updatePage() {
 	updateDayCycle();
 	updateBounty();
+	updateWorldStateTime();
+}
+
+function updateWorldStateTime() {
+	if(worldCycle){
+		clearInterval(worldCycle);
+		worldCycle = null;
+	}
+	worldCycle = setInterval(function(){
+		document.getElementById('worldstate').innerText = moment(updateTime).fromNow();
+	}, 1000);
 }
 
 function updateDayCycle() {
@@ -117,4 +131,4 @@ function formatDuration(duration){
 getWorldState();
 setInterval(function(){
 	getWorldState();
-}, 60000);
+}, 30000);
