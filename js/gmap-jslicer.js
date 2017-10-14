@@ -5,6 +5,8 @@
  *
  * Not Production Ready
  * For use as code sample only
+ *
+ * Sorry, using it for production :(  - Eric
  **/
 function JSlicer(target, src) {
     this.img;
@@ -92,10 +94,6 @@ function GMICMapType(img) {
             map = new google.maps.Map(that.target, myOptions);
             gmicMapType = new GMICMapType(that.img);
             map.mapTypes.set("GameMap",gmicMapType);
-            
-            if(!that.imageWraps) {
-                that.setBounds();
-            }
         };
 
         downloadAsset(this.src, function() {
@@ -117,24 +115,6 @@ function GMICMapType(img) {
         if (height>=0) {
             d.style.height=height+"px";
         }
-    };
-    
-    JSlicer.prototype.setBounds = function setBounds() {
-        var allowedBounds = new google.maps.LatLngBounds(
-             new google.maps.LatLng(-85.0, -180.0), 
-             new google.maps.LatLng(85.0, 180.0)
-        );
-        
-        var lastValidCenter = map.getCenter();
-        
-        google.maps.event.addListener(map, 'center_changed', function() {
-            if (allowedBounds.contains(map.getCenter())) {
-                lastValidCenter = map.getCenter();
-                return; 
-            }
-            
-            map.panTo(lastValidCenter);
-        });
     };
     
     JSlicer.prototype.redraw = function redraw() {
@@ -188,8 +168,8 @@ function GMICMapType(img) {
         tile=null;
     };
     
-    GMICMapType.prototype.name = "GMap-JSlicer";
-    GMICMapType.prototype.alt = "GMap-JSlicer";
+    GMICMapType.prototype.name = "Plains of Eidolon";
+    GMICMapType.prototype.alt = "Plains of Eidolon";
     GMICMapType.prototype.setOpacity = function(newOpacity) {
         this.opacity = newOpacity;
         for (var i = 0; i < this.Cache.length; i++) {
