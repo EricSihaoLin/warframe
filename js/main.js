@@ -69,10 +69,26 @@ function updateDayCycle() {
 		dayCycle = null;
 	}
 	dayCycle = setInterval(function(){
-		var duration = moment.duration(getSecondsLeft()*1000, 'milliseconds');
+		var secondsLeft = getSecondsLeft();
+		var cycleSeconds = getCurrentCycleSeconds();
+		var duration = moment.duration(secondsLeft*1000, 'milliseconds');
 		duration = moment.duration(duration.asMilliseconds() - 1000, 'milliseconds');
-		document.getElementById('title').innerText = getCurrentTitle();
-		document.getElementById('time').innerText = formatDuration(duration);
+		document.getElementById('cycletitle').innerText = getCurrentTitle();
+		document.getElementById('cycletime').innerText = formatDuration(duration);
+		if(cycleSeconds < 480){
+			var eidolonduration = moment.duration((480 - cycleSeconds)*1000, 'milliseconds');
+			eidolonduration = moment.duration(eidolonduration.asMilliseconds() - 1000, 'milliseconds');
+			document.getElementById('eidolontitle').innerText = "Eidolon spawns in:";
+			document.getElementById('eidolontime').innerText = formatDuration(eidolonduration);
+		}else if(cycleSeconds >= 480 && cycleSeconds < 2520){
+			var eidolonduration = moment.duration((2520 - cycleSeconds)*1000, 'milliseconds');
+			eidolonduration = moment.duration(eidolonduration.asMilliseconds() - 1000, 'milliseconds');
+			document.getElementById('eidolontitle').innerText = "Eidolon retreats in:";
+			document.getElementById('eidolontime').innerText = formatDuration(eidolonduration);
+		}else{
+			document.getElementById('eidolontitle').innerText = "Eidolon only spawns during night time...";
+			document.getElementById('eidolontime').innerText = "Refer to Day/Night timer for now.";
+		}
 	}, 1000);
 }
 
