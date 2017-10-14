@@ -85,6 +85,9 @@ function updateDayCycle() {
 			eidolonduration = moment.duration(eidolonduration.asMilliseconds() - 1000, 'milliseconds');
 			document.getElementById('eidolontitle').innerText = "Eidolon retreats in:";
 			document.getElementById('eidolontime').innerText = formatDuration(eidolonduration);
+		}else if(cycleSeconds >= 2520 && cycleSeconds < 3000){
+			document.getElementById('eidolontitle').innerText = "Eidolon has retreated for tonight...";
+			document.getElementById('eidolontime').innerText = "Catch it again tomorrow night.";
 		}else{
 			document.getElementById('eidolontitle').innerText = "Eidolon only spawns during night time...";
 			document.getElementById('eidolontime').innerText = "Refer to Day/Night timer for now.";
