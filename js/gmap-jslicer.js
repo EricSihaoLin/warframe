@@ -53,6 +53,9 @@ function addMarkers(map) {
 		['Fishing', -10.83330598364249, 19.6875, 'Charc Eel<br>Mort Fish<br>Khut Khut'],
 		['Fishing', -46.316584181822186, -158.90625, 'Goopolla<br>Tarrok<br>Sharrat (Night)'],
 		['Fishing', -61.77312286453145, -162.0703125, 'Goopolla<br>Tarrok<br>Sharrat (Night)<br>Karkina Crabs'],
+		['Fishing', -76.18499546094715, -126.5625, 'Goopolla'],
+		['Fishing', 37.16031654673677, -69.2578125, 'Khut Khut<br>Yogwun Fish'],
+		['Fishing', 83.0687741347372, -132.5390625, 'Khut Khut<br>Yogwun Fish'],
 	];
 	
 	var caveIcon = {
