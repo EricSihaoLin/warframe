@@ -7,7 +7,6 @@ body {
 }
 
 .map-container {
-  min-height: 100%;
   width: 100%;
-  overflow: auto;
+  height: 90vh;
 }
