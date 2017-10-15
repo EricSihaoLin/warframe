@@ -8,13 +8,14 @@
  *
  * Sorry, using it for production :(  - Eric
  **/
+ 
 function JSlicer(target, src) {
     this.img;
     this.target = target;
     this.src = src;
     this.centreLat = 0.0;
     this.centreLon = 0.0;
-    this.initialZoom = 3;
+    this.initialZoom = 2;
     this.imageWraps = false;
     this.map;
     this.gmicMapType;
@@ -24,6 +25,24 @@ function GMICMapType(img) {
     this.sourceImg = img;
     this.Cache = Array();
     this.opacity = 1.0;
+}
+
+// Adds a marker to the map.
+function addMarker(location, map) {
+  // Add the marker at the clicked location, and add the next-available label
+  // from the array of alphabetical characters.
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map,
+	title: 'Marker'
+  });
+  var infowindow = new google.maps.InfoWindow();
+  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                        infowindow.setContent("Marker: \n" + JSON.stringify(location));
+                        infowindow.open(map, marker);
+                    }
+                })(marker, map));
 }
     
 (function() {        
@@ -92,6 +111,11 @@ function GMICMapType(img) {
             }
             
             map = new google.maps.Map(that.target, myOptions);
+			// This event listener calls addMarker() when the map is clicked.
+			google.maps.event.addListener(map, 'click', function(event) {
+				var marker = addMarker(event.latLng, map);
+			});
+
             gmicMapType = new GMICMapType(that.img);
             map.mapTypes.set("GameMap",gmicMapType);
         };
@@ -124,7 +148,7 @@ function GMICMapType(img) {
     };
 
     GMICMapType.prototype.tileSize = new google.maps.Size(256, 256);
-    GMICMapType.prototype.maxZoom = 19;
+    GMICMapType.prototype.maxZoom = 4;
     GMICMapType.prototype.getTile = function(coord, zoom, ownerDocument) {
         var c = Math.pow(2, zoom);
         var tilex=coord.x,tiley=coord.y;

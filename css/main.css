@@ -5,3 +5,9 @@ body {
   padding: 3rem 1.5rem;
   text-align: center;
 }
+
+.map-container {
+  min-height: 100%;
+  width: 100%;
+  overflow: auto;
+}

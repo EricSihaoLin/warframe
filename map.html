@@ -5,6 +5,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
     <title>Warframe Tools | Map</title>
 
@@ -14,16 +15,19 @@
     <!-- Custom styles for this template -->
     <link href="css/main.css" rel="stylesheet">
 	
-	<style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-    </style>
+	<script type="text/javascript" defer='defer'>
+        function ready() {
+            slicer = new JSlicer(document.getElementById('map'), 'img/plains.png');
+            slicer.init();
+        }
+        
+        function resize() {
+            slicer.resizeMapDiv();
+        }
+    </script>
   </head>
 
-  <body cz-shortcut-listen="true">
+  <body cz-shortcut-listen="true" onresize="resize()" onload="ready()">
 
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,69 +46,9 @@
         </ul>
       </div>
     </nav>
-
-    <div class="container">
-		<div id="map" style="width:100%;height:100%"></div>
-	<script>
-
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 0, lng: 0},
-          zoom: 1,
-          streetViewControl: false,
-          mapTypeControlOptions: {
-            mapTypeIds: ['moon']
-          }
-        });
-
-        var moonMapType = new google.maps.ImageMapType({
-          getTileUrl: function(coord, zoom) {
-              var normalizedCoord = getNormalizedCoord(coord, zoom);
-              if (!normalizedCoord) {
-                return null;
-              }
-              var bound = Math.pow(2, zoom);
-              return '//mw1.google.com/mw-planetary/lunar/lunarmaps_v1/clem_bw' +
-                  '/' + zoom + '/' + normalizedCoord.x + '/' +
-                  (bound - normalizedCoord.y - 1) + '.jpg';
-          },
-          tileSize: new google.maps.Size(256, 256),
-          maxZoom: 9,
-          minZoom: 0,
-          radius: 1738000,
-          name: 'Moon'
-        });
-
-        map.mapTypes.set('moon', moonMapType);
-        map.setMapTypeId('moon');
-      }
-
-      // Normalizes the coords that tiles repeat across the x axis (horizontally)
-      // like the standard Google map tiles.
-      function getNormalizedCoord(coord, zoom) {
-        var y = coord.y;
-        var x = coord.x;
-
-        // tile range in one direction range is dependent on zoom level
-        // 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
-        var tileRange = 1 << zoom;
-
-        // don't repeat across y-axis (vertically)
-        if (y < 0 || y >= tileRange) {
-          return null;
-        }
-
-        // repeat across x-axis
-        if (x < 0 || x >= tileRange) {
-          x = (x % tileRange + tileRange) % tileRange;
-        }
-
-        return {x: x, y: y};
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiy4WUjEAGT2WCJWgsQK3f8Hz4qchbKuU&callback=initMap">
-    </script>
+	
+    <div class="map-container">
+		<div id="map"></div>
     </div><!-- /.container -->
 
 
@@ -112,10 +56,21 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="js/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
+	<script type="text/javascript" src="js/gmap-jslicer.js"></script>
+    <script type="text/javascript" defer='defer'></script>
+	<script type="text/javascript" defer='defer'>
+        function ready() {
+            slicer = new JSlicer(document.getElementById('map'), 'img/plains.png');
+            slicer.init();
+        }
+        
+        function resize() {
+            slicer.resizeMapDiv();
+        }
+    </script>
 
 </body></html>
