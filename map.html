@@ -244,8 +244,8 @@
 					function checkBounds() {
 					
 						var allowedBounds = new google.maps.LatLngBounds(
-							new google.maps.LatLng(-65.0, -100.0),
-							new google.maps.LatLng(65.0, 100.0));
+							new google.maps.LatLng(-65.0, -80.0),
+							new google.maps.LatLng(65.0, 80.0));
 						
 						if(allowedBounds.contains(map.getCenter())) {
 							return;
