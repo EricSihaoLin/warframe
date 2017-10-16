@@ -5,7 +5,7 @@ var bountyCycle;
 var worldCycle;
 
 function getWorldState() {
-	$.getJSON('http://www.whateverorigin.org/get?url=' + encodeURIComponent('http://content.warframe.com/dynamic/worldState.php') + '&callback=?', function(data){
+	$.getJSON('https://www.whateverorigin.org/get?url=' + encodeURIComponent('http://content.warframe.com/dynamic/worldState.php') + '&callback=?', function(data){
 		worldState = JSON.parse(data.contents);
 		updateTime = (new Date()).getTime();
 		updatePage();
