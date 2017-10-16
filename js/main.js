@@ -21,7 +21,7 @@ function getCurrentTitle () {
 }
 
 function getCurrentCycleSeconds() {
-	var cycleSeconds = Math.floor((new Date()).getTime() / 1000 + 480) % 9000; // One cycle = 2.5 hours = 9000 seconds
+	var cycleSeconds = Math.floor((new Date()).getTime() / 1000 + 780) % 9000; // One cycle = 2.5 hours = 9000 seconds
 	return cycleSeconds;
 }
 
