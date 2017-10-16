@@ -50,7 +50,7 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
-		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAiy4WUjEAGT2WCJWgsQK3f8Hz4qchbKuU"></script>
 		<script>
 
 			var repeatOnXAxis = false;
@@ -170,6 +170,16 @@
 						['Grineer East Outpost', -56.94497418085159, 65.21484375, ''],
 					];
 					
+					var oddityIcon = {
+						url: "img/map_icons/fishstatute.png",
+						origin: new google.maps.Point(0,0),
+						anchor: new google.maps.Point(0,0)
+					};
+					
+					var oddity = [
+						['1000 Year Fish', -66.99884379185184, -43.2421875, 'video/1000yrfish/loc1.mp4'],
+					];
+					
 					var infowindow = new google.maps.InfoWindow();
 					
 					// Home icon loop
@@ -247,6 +257,28 @@
 						google.maps.event.addListener(marker, 'click', (function (marker, i) {
 							return function () {
 								infowindow.setContent("<h6>" + grineer[i][0] + "</h6>" + grineer[i][3]);
+								infowindow.open(map, marker);
+							}
+						})(marker, i)); 
+					}
+					
+					// Oddity icon loop
+					for (var i = 0; i < oddity.length; i++){
+						var marker = new google.maps.Marker({
+							position: new google.maps.LatLng(oddity[i][1], oddity[i][2]),
+							map: map,
+							icon: oddityIcon,
+							title: oddity[i][0],
+							optimized: false
+						});
+						
+						google.maps.event.addListener(marker, 'click', (function (marker, i) {
+							return function () {
+								infowindow.setContent("<h6>" + oddity[i][0] + "</h6>" + 
+								'<video width="320" height="240" controls>' +
+								'<source src="' + oddity[i][3] +'" type="video/mp4" />' +
+								'</video>'
+								);
 								infowindow.open(map, marker);
 							}
 						})(marker, i)); 
@@ -355,6 +387,9 @@
 				<br><br>
 				General information by /u/Cammo_353
 				<br><a href="https://www.reddit.com/r/Warframe/comments/76ivu5/i_made_a_plains_of_eidolon_field_guide/" target="_blank">Reddit Guide Thread</a>
+				<br><br>
+				1000 Year Fish Information by Syahmi Samri
+				<br><a href="https://www.youtube.com/watch?v=b6dz1L8q3bA" target="_blank">Original Youtube Video</a>
 			  </div>
 			  <div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal" style="cursor:pointer;">Close</button>
