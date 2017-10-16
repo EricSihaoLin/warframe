@@ -21,7 +21,7 @@ function getCurrentTitle () {
 }
 
 function getCurrentCycleSeconds() {
-	var cycleSeconds = Math.floor((new Date()).getTime() / 1000 + 300) % 9000; // One cycle = 2.5 hours = 9000 seconds
+	var cycleSeconds = Math.floor((new Date()).getTime() / 1000 + 480) % 9000; // One cycle = 2.5 hours = 9000 seconds
 	return cycleSeconds;
 }
 
@@ -75,12 +75,7 @@ function updateDayCycle() {
 		duration = moment.duration(duration.asMilliseconds() - 1000, 'milliseconds');
 		document.getElementById('cycletitle').innerText = getCurrentTitle();
 		document.getElementById('cycletime').innerText = formatDuration(duration);
-		if(cycleSeconds < 480){
-			var eidolonduration = moment.duration((480 - cycleSeconds)*1000, 'milliseconds');
-			eidolonduration = moment.duration(eidolonduration.asMilliseconds() - 1000, 'milliseconds');
-			document.getElementById('eidolontitle').innerText = "Eidolon spawns in:";
-			document.getElementById('eidolontime').innerText = formatDuration(eidolonduration);
-		}else if(cycleSeconds >= 480 && cycleSeconds < 2520){
+		if(cycleSeconds < 2520){
 			var eidolonduration = moment.duration((2520 - cycleSeconds)*1000, 'milliseconds');
 			eidolonduration = moment.duration(eidolonduration.asMilliseconds() - 1000, 'milliseconds');
 			document.getElementById('eidolontitle').innerText = "Eidolon retreats in:";
@@ -89,8 +84,8 @@ function updateDayCycle() {
 			document.getElementById('eidolontitle').innerText = "Eidolon has retreated for tonight...";
 			document.getElementById('eidolontime').innerText = "Catch it again tomorrow night.";
 		}else{
-			document.getElementById('eidolontitle').innerText = "Eidolon only spawns during night time...";
-			document.getElementById('eidolontime').innerText = "Refer to Day/Night timer for now.";
+			document.getElementById('eidolontitle').innerText = "Eidolon spawns around nightfall";
+			document.getElementById('eidolontime').innerText = "Refer to day/night timer";
 		}
 	}, 1000);
 }
