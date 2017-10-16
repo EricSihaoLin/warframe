@@ -135,7 +135,7 @@
 						['Sea (Recommended)', -43.58039085560784, -103.535, 'Sea'],
 						['Sea (Recommended)', -70.31873847853122, 63.98437, 'Sea'],
 						['Sea (Recommended)', -69.7789517764676, 91.230468, 'Sea'],
-						['Sentient Lake (Recommended)', -6.4899833326706515, 12.8320, 'Lake'],
+						['Sentient Lake (Recommended)', -7.362466865535737, 18.984375, 'Lake'],
 					];
 					
 					var fishInfo = [
@@ -187,7 +187,26 @@
 					};
 					
 					var oddity = [
-						['1000 Year Fish', -66.99884379185184, -43.2421875, 'video/1000yrfish/loc1.mp4'],
+						['Thousand-Year Fish Statuette', -66.99884379185184, -43.2421875, 'Ostron Patios', 'video/1000yrfish/loc1.mp4'],
+						['Thousand-Year Fish Statuette', -61.93895042666061, -67.67578125, 'Ostron Artisans', 'video/1000yrfish/loc2.mp4'],
+						['Thousand-Year Fish Statuette', -46.92025531537451, -87.36328125, 'Tools of Harvest', 'video/1000yrfish/loc3.mp4'],
+						['Thousand-Year Fish Statuette', -28.613459424004418, -54.140625, 'Teralyst Eidolon', 'video/1000yrfish/loc4.mp4'],
+						['Thousand-Year Fish Statuette', -37.300275281344305, -24.78515625, 'Scavenging Way of Life', 'video/1000yrfish/loc5.mp4'],
+						['Thousand-Year Fish Statuette', -2.460181181020993, -11.6015625, 'Harvesting the Tower', 'video/1000yrfish/loc6.mp4'],
+						['Thousand-Year Fish Statuette', -3.6888551431470353, 12.3046875, 'Plains of Eidolon', 'video/1000yrfish/loc7.mp4'],
+						['Thousand-Year Fish Statuette', -19.808054128088575, 74.1796875, 'The Unum', 'video/1000yrfish/loc8.mp4'],
+						['Thousand-Year Fish Statuette', -69.90011762668539, 70.3125, 'Ancient History', 'video/1000yrfish/loc9.mp4'],
+						['Thousand-Year Fish Statuette', 0.5273363048115169, 66.09375, 'AMPs', 'video/1000yrfish/loc10.mp4'],
+						['Thousand-Year Fish Statuette', 36.4566360115962, 74.1796875, 'Life in Cetus', 'video/1000yrfish/loc11.mp4'],
+						['Thousand-Year Fish Statuette', 59.265880628258095, 90.0, 'Cetus', 'video/1000yrfish/loc12.mp4'],
+						['Thousand-Year Fish Statuette', 58.53959476664049, 25.48828125, 'The Quills of Cetus', 'video/1000yrfish/loc13.mp4'],
+						['Thousand-Year Fish Statuette', 68.84766505841037, 12.65625, 'Plains Animals', 'video/1000yrfish/loc14.mp4'],
+						['Thousand-Year Fish Statuette', 61.01572481397616, -14.0625, 'The Tower\'s Flesh', 'video/1000yrfish/loc15.mp4'],
+						['Thousand-Year Fish Statuette', 65.44000165965534, -47.63671875, 'Grineer Excavations', 'video/1000yrfish/loc16.mp4'],
+						['Thousand-Year Fish Statuette', 65.73062649311031, -68.37890625, 'Merchants of Cetus', 'video/1000yrfish/loc17.mp4'],
+						['Thousand-Year Fish Statuette', 41.11246878918088, -79.62890625, 'Remnants of Orokin', 'video/1000yrfish/loc18.mp4'],
+						['Thousand-Year Fish Statuette', 11.350796722383672, -90.52734375, 'The Grineer Tusks', 'video/1000yrfish/loc19.mp4'],
+						['Thousand-Year Fish Statuette', 35.31736632923788, -39.90234375, 'The Ostrons', 'video/1000yrfish/loc20.mp4'],
 					];
 					
 					var infowindow = new google.maps.InfoWindow();
@@ -284,9 +303,9 @@
 						
 						google.maps.event.addListener(marker, 'click', (function (marker, i) {
 							return function () {
-								infowindow.setContent("<h6>" + oddity[i][0] + "</h6>" + 
+								infowindow.setContent("<h6>" + oddity[i][0] + "</h6>Fragment Name: <b>" + oddity[i][3] + "</b><br>" + 
 								'<video width="320" height="240" controls>' +
-								'<source src="' + oddity[i][3] +'" type="video/mp4" />' +
+								'<source src="' + oddity[i][4] +'" type="video/mp4" />' +
 								'</video>'
 								);
 								infowindow.open(map, marker);
