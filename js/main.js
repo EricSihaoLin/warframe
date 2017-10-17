@@ -75,18 +75,6 @@ function updateDayCycle() {
 		duration = moment.duration(duration.asMilliseconds() - 1000, 'milliseconds');
 		document.getElementById('cycletitle').innerText = getCurrentTitle();
 		document.getElementById('cycletime').innerText = formatDuration(duration);
-		if(cycleSeconds < 2520){
-			var eidolonduration = moment.duration((2520 - cycleSeconds)*1000, 'milliseconds');
-			eidolonduration = moment.duration(eidolonduration.asMilliseconds() - 1000, 'milliseconds');
-			document.getElementById('eidolontitle').innerText = "Eidolon retreats in:";
-			document.getElementById('eidolontime').innerText = formatDuration(eidolonduration);
-		}else if(cycleSeconds >= 2520 && cycleSeconds < 3000){
-			document.getElementById('eidolontitle').innerText = "Eidolon has retreated for tonight...";
-			document.getElementById('eidolontime').innerText = "Catch it again tomorrow night.";
-		}else{
-			document.getElementById('eidolontitle').innerText = "Eidolon spawns around nightfall";
-			document.getElementById('eidolontime').innerText = "Refer to day/night timer";
-		}
 	}, 1000);
 }
 
