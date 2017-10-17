@@ -32,6 +32,7 @@
 			<a class="nav-link" href="#">Map <span class="sr-only">(current)</span></a>
           </li>
         </ul>
+        <button type="button" class="btn btn-outline-success" style="margin-right:5px;cursor:pointer;" data-toggle="modal" data-target="#fishinfo">Fish Info</button>
 		<button type="button" class="btn btn-outline-success" style="margin-right:5px;cursor:pointer;" data-toggle="modal" data-target="#credits">Map Credits</button>
 		<a href="https://github.com/MainlandHero/warframe" class="btn btn-outline-success my-2 my-sm-0">Github Repo</a>
       </div>
@@ -139,9 +140,9 @@
 					];
 					
 					var fishInfo = [
-						['Pond', 'Khut Khut (Day)<br>Yogwun (Day)<br>Mortus Lungfish<br>Cuthol* (Night)<br><br><b>*Peppered Bait Required</b><br>Boot also available for missed fish'],
-						['Lake', 'Charc Eel<br>Mawfish (Day)<br>Norg*<br><br><b>*Peppered Bait Required</b><br>Boot also available for missed fish'],
-						['Sea', 'Goopola<br>Karkina*<br>Sharrac*<br>Tralok (Day)<br>Murkray*<br>Glappid* (Night)<br><br><b>*Peppered Bait Required</b><br>Boot also available for missed fish'],
+						['Pond', 'Khut Khut (Day, Any Spear)<br>Yogwun (Day, Lanzo/Peram Spear)<br>Mortus Lungfish (Lanzo/Peram Spear)<br>Cuthol* (Night, Peram/Spear)<br><br><b>*Appropriate bait required</b><br>Please click on Fish Info for more'],
+						['Lake', 'Charc Eel (Lanzo Spear)<br>Mawfish (Day, Lanzo Spear)<br>Norg* (Peram Spear)<br><br><b>*Appropriate bait/spear required</b><br>Please click on Fish Info for more'],
+						['Sea', 'Goopola (Lanzo/Tulok Spear)<br>Karkina* (Lanzo, Tulok Spear)<br>Sharrac* (Lanzo/Tulok Spear)<br>Tralok (Day, Tulok Spear)<br>Murkray* (Lanzo Spear)<br>Glappid* (Night, Peram Spear)<br><br><b>*Appropriate bait required</b><br>Please click on Fish Info for more'],
 					];
 					
 					var caveIcon = {
@@ -396,6 +397,46 @@
 				}
 				
 		</script>
+
+		<!-- Fish Info -->
+		<div class="modal fade" id="fishinfo" tabindex="-1" role="dialog" aria-labelledby="creditsLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Fish Info</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				Following Hotfix 22.0.3, you must equip the proper spear to catch the fish in 1 shot. Spear efficiency is determined by the type of fish you are catching. In order to have maximum fishing efficiency, you must equip all spears to catch all the different kinds of fish you might see.
+				<br><br>
+				<b>Twilight Bait:</b> Karkina and Sharrac (Sea)
+				<br>
+				<b>Cuthol Bait:</b> Cuthol (Pond)
+				<br>
+				<b>Murkray Bait:</b> Murkray (Sea)
+				<br>
+				<b>Norg Bait:</b> Norg (Lake)
+				<br>
+				<b>Glappid Bait:</b> Glappid (Sea)
+				<br>
+				<b>Peppered Bait:</b> Anything else at anywhere
+				<br><br>
+				Bait lasts 30 seconds, and must be through in wavy water:
+				<br>
+				<img src="img/wavywater.png" width=100% />
+				<br>
+				Image by Narration (WFRSB)
+				<br>
+				<a href="https://docs.google.com/document/d/1YsLgnEE00comLfMxDeRqUgjKg4GEM4RCcfnFSxb5BvM/edit">The definitive guide to fishing in Warframe</a>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" style="cursor:pointer;">Close</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
 		
 		<!-- Map Credits -->
 		<div class="modal fade" id="credits" tabindex="-1" role="dialog" aria-labelledby="creditsLabel" aria-hidden="true">
